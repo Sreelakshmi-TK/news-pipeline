@@ -1,62 +1,89 @@
-# News Pipeline using AWS, Lambda, Docker & Streamlit
+# News Pipeline on AWS
 
-A cloud-based news data pipeline that fetches real-time news articles using NewsAPI, stores them in PostgreSQL (Amazon RDS), uploads raw JSON data to Amazon S3, and visualizes the processed data through a Streamlit dashboard deployed using Docker and Amazon ECS Fargate.
+An end-to-end cloud-based news data pipeline built using AWS services, Python, Docker, and Streamlit.
 
----
+This project fetches real-time news articles from NewsAPI, processes the data using AWS Lambda, stores raw JSON data in Amazon S3, saves structured records in PostgreSQL (Amazon RDS), and visualizes the news through a Streamlit dashboard deployed on Amazon ECS Fargate.
 
-## Features
-
-- Fetches real-time news articles using NewsAPI
-- Stores raw news data in Amazon S3
-- Inserts processed articles into PostgreSQL (Amazon RDS)
-- Serverless ingestion using AWS Lambda
-- Interactive dashboard built with Streamlit
-- Containerized using Docker
-- Deployed on Amazon ECS Fargate
+The project demonstrates practical implementation of serverless computing, containerization, cloud storage, database integration, and dashboard deployment in AWS.
 
 ---
 
-## Tech Stack
+# Architecture Diagram
 
-### Backend & Processing
+![Architecture](docs/architecture.png)
+
+---
+
+# Project Overview
+
+The pipeline performs the following workflow:
+
+1. AWS Lambda fetches real-time news data from NewsAPI
+2. Raw JSON responses are stored in Amazon S3
+3. Processed news articles are inserted into PostgreSQL hosted on Amazon RDS
+4. A Streamlit dashboard reads the stored data
+5. The dashboard is containerized using Docker
+6. Docker image is deployed to Amazon ECS Fargate using Amazon ECR
+
+---
+
+# Tech Stack
+
+## Programming Language
 - Python
-- AWS Lambda
-- NewsAPI
-- pg8000
 
-### Cloud Services
+## Cloud Services
+- AWS Lambda
 - Amazon S3
-- Amazon RDS (PostgreSQL)
+- Amazon RDS PostgreSQL
 - Amazon ECS Fargate
 - Amazon ECR
+- CloudWatch
 
-### Dashboard
+## Libraries and Frameworks
 - Streamlit
 - Pandas
-- Matplotlib
+- Requests
+- pg8000
+- Boto3
 
-### DevOps & Deployment
+## DevOps Tools
 - Docker
+- Git
 - GitHub
 
 ---
 
-## Architecture
+# Features
 
-![Architecture Diagram](docs/architecture-diagram.png)
+- Automated real-time news ingestion
+- Serverless data processing with AWS Lambda
+- Cloud storage using Amazon S3
+- PostgreSQL database integration
+- Containerized dashboard deployment
+- ECS Fargate deployment
+- Interactive Streamlit dashboard
+- End-to-end AWS integration
 
 ---
 
-## Dashboard Preview
+# AWS Architecture Components
 
-![Dashboard](screenshots/dashboard-ui.png)
+| AWS Service | Purpose |
+|---|---|
+| AWS Lambda | Fetch and process news data |
+| Amazon S3 | Store raw JSON news files |
+| Amazon RDS PostgreSQL | Store structured news records |
+| Amazon ECS Fargate | Run Streamlit dashboard containers |
+| Amazon ECR | Store Docker images |
+| CloudWatch | Logging and monitoring |
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```bash
-NEWS-PIPELINE/
+news-pipeline/
 │
 ├── dashboard/
 │   ├── app.py
@@ -66,53 +93,17 @@ NEWS-PIPELINE/
 ├── lambda_function/
 │   └── lambda_function.py
 │
-├── raw_news/
 ├── docs/
+│   └── architecture.png
+│
 ├── screenshots/
+│   ├── lambda-success.png
+│   ├── ecs-cluster.png
+│   ├── ecs-task.png
+│   ├── dashboard-home.png
+│   ├── s3-bucket.png
+│   └── rds-instance.png
+│
 ├── requirements.txt
-├── .gitignore
-└── README.md
-```
-
----
-
-## Workflow
-
-1. AWS Lambda fetches news articles from NewsAPI
-2. Raw JSON data is uploaded to Amazon S3
-3. Processed records are inserted into PostgreSQL (Amazon RDS)
-4. Streamlit dashboard reads data from RDS
-5. Dashboard is containerized using Docker
-6. Docker image is deployed on Amazon ECS Fargate
-
----
-
-## Running the Dashboard Locally
-
-```bash
-cd dashboard
-docker build -t news-dashboard .
-docker run -p 8501:8501 news-dashboard
-```
-
-Open:
-
-```text
-http://localhost:8501
-```
-
----
-
-## Future Improvements
-
-- Add sentiment analysis
-- Schedule Lambda using EventBridge
-- Add CI/CD pipeline
-- Deploy dashboard using custom domain
-- Add analytics and filters
-
----
-
-## Author
-
-Sreelakshmi TK
+├── README.md
+└── .gitignore
